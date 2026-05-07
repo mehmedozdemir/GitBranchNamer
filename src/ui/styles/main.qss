@@ -1,0 +1,97 @@
+/* src/ui/styles/main.qss */
+
+/* Genel Uygulama */
+QWidget {
+    background-color: #1e1e2e;
+    color: #cdd6f4;
+    font-family: "Consolas", "SF Mono", "DejaVu Sans Mono", monospace;
+    font-size: 14px;
+}
+
+/* Etiketler */
+QLabel {
+    color: #bac2de;
+}
+
+#char_counter {
+    font-size: 12px;
+}
+
+/* ComboBox ve LineEdit */
+QComboBox, QLineEdit {
+    background-color: #2a2a3e;
+    color: #cdd6f4;
+    border: 1px solid #45475a;
+    border-radius: 4px;
+    padding: 6px 10px;
+    min-height: 24px;
+}
+
+QComboBox:hover, QLineEdit:hover {
+    border: 1px solid #585b70;
+}
+
+QComboBox:focus, QLineEdit:focus {
+    border: 1px solid #89b4fa;
+}
+
+QComboBox::drop-down {
+    border: none;
+    padding-right: 10px;
+}
+
+/* Preview Box */
+#preview_label {
+    background-color: #11111b;
+    border: 1px solid #45475a;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#preview_label[state="valid"] {
+    color: #a6e3a1; /* Yeşil metin */
+    border: 1px solid #a6e3a1; /* Yeşil çerçeve */
+}
+
+#preview_label[state="invalid"] {
+    color: #f38ba8; /* Kırmızı metin */
+    border: 1px solid #f38ba8; /* Kırmızı çerçeve */
+}
+
+#error_label {
+    color: #f38ba8;
+    font-size: 12px;
+    margin-top: 10px;
+    margin-bottom: 6px;
+}
+
+/* Butonlar */
+QPushButton {
+    background-color: #89b4fa;
+    color: #11111b;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-weight: bold;
+    min-width: 120px;
+}
+
+QPushButton:hover {
+    background-color: #b4befe;
+}
+
+QPushButton:pressed {
+    background-color: #74c7ec;
+}
+
+QPushButton:disabled {
+    background-color: #45475a;
+    color: #a6adc8;
+}
+
+QPushButton[state="success"] {
+    background-color: #a6e3a1;
+    color: #11111b;
+}

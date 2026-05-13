@@ -11,6 +11,12 @@ BRANCH_TYPES = {
     "hotfix":   ["preprod", "master"],
 }
 
+# Kaynak branch'e göre izin verilen branch tipleri (BRANCH_TYPES'ın tersi)
+SOURCE_TO_TYPES: dict[str, list[str]] = {}
+for _btype, _sources in BRANCH_TYPES.items():
+    for _src in _sources:
+        SOURCE_TO_TYPES.setdefault(_src, []).append(_btype)
+
 # Ortam branch'leri (kalıcı)
 ENV_BRANCHES = ["dev", "test", "preprod", "master"]
 

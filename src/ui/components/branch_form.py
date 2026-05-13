@@ -2,7 +2,7 @@
 
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QComboBox, QLineEdit
 from PyQt6.QtCore import pyqtSignal, Qt
-from src.core.constants import BRANCH_TYPES
+from src.core.constants import ENV_BRANCHES, SOURCE_TO_TYPES
 
 class BranchForm(QWidget):
     # Formdaki herhangi bir alan değiştiğinde tetiklenir
@@ -22,17 +22,17 @@ class BranchForm(QWidget):
         type_label = QLabel("Branch Tipi:")
         type_label.setFixedWidth(100)
         self.type_combo = QComboBox()
-        self.type_combo.addItems(list(BRANCH_TYPES.keys()))
-        self.type_combo.currentTextChanged.connect(self.on_type_changed)
+        self.type_combo.currentTextChanged.connect(self.emit_changed)
         type_layout.addWidget(type_label)
         type_layout.addWidget(self.type_combo)
-        
+
         # Kaynak Branch
         source_layout = QHBoxLayout()
         source_label = QLabel("Kaynak Branch:")
         source_label.setFixedWidth(100)
         self.source_combo = QComboBox()
-        self.source_combo.currentTextChanged.connect(self.emit_changed)
+        self.source_combo.addItems(ENV_BRANCHES)
+        self.source_combo.currentTextChanged.connect(self.on_source_changed)
         source_layout.addWidget(source_label)
         source_layout.addWidget(self.source_combo)
         
@@ -68,22 +68,22 @@ class BranchForm(QWidget):
         desc_layout.addLayout(desc_input_layout)
         
         # Layouts add
-        layout.addLayout(type_layout)
         layout.addLayout(source_layout)
+        layout.addLayout(type_layout)
         layout.addLayout(ticket_layout)
         layout.addLayout(desc_layout)
         
         self.setLayout(layout)
         
         # İlk filtrelemeyi yap
-        self.on_type_changed(self.type_combo.currentText())
+        self.on_source_changed(self.source_combo.currentText())
 
-    def on_type_changed(self, branch_type: str):
-        self.source_combo.blockSignals(True)
-        self.source_combo.clear()
-        allowed_sources = BRANCH_TYPES.get(branch_type, [])
-        self.source_combo.addItems(allowed_sources)
-        self.source_combo.blockSignals(False)
+    def on_source_changed(self, source: str):
+        self.type_combo.blockSignals(True)
+        self.type_combo.clear()
+        allowed_types = SOURCE_TO_TYPES.get(source, [])
+        self.type_combo.addItems(allowed_types)
+        self.type_combo.blockSignals(False)
         self.emit_changed()
 
     def on_desc_changed(self, text: str):
